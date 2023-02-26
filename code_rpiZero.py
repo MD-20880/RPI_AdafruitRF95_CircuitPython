@@ -8,6 +8,10 @@ import config
 import threading
 import queue
 import inspect
+import struct 
+
+#Configs
+RECEIVE_TIMEOUT = 3
 
 
 #Symbols
@@ -27,8 +31,21 @@ reset = digitalio.DigitalInOut(board.CE1)
 rfm9x = adafruit_rfm9x.RFM9x(spi, cs, reset, 433.0)
 
 
-#MCL = MAGIC_CODE_LENGTH
+#
+class Sensor:
+    def __init__(self) -> None:
+        self.id
+        self.start_time
+        self.last_event_fired_at
+        self.type
+        self.state
 
+        
+        
+    
+#UTILS
+
+#MCL = MAGIC_CODE_LENGTH
 class DataParser:
     def __init__(self,MCL=1,DIL=1,TSL=26,PL=1):
         self.MCL = 0
@@ -47,16 +64,27 @@ class DataParser:
         page_left = dataLine[self.PLS:self.DS]
         parseOutput["magic_code"] = magic_code
         parseOutput["device_id"] = device_id
-        parseOutput["timestamp"] 
+        parseOutput["timestamp"] = struct.unpack(">f",timestamp)###
         parseOutput["page_left"] = page_left
         
         return parseOutput
 
 dp = DataParser()
         
-        
+def dataSend( mn ,sensor_id, txData ):
+    curtime = struct.pack(">f",time.time())
+    byteData = bytes(txData,'ascii')
+    data = bytes([mn,sensor_id]) + curtime + bytes(0x00) + bytes(txData,'ascii')
+    rfm9x.send(bytearray(data))
 
-#SensorList { ID : TYPE }
+def dataReceive():
+    receive = rfm9x.receive(timeout=RECEIVE_TIMEOUT)
+    if receive is not None:
+        return dp.parse(receive)
+        
+    
+
+#SensorList { ID : Sensor }
 sensorList = {}
 
 #Collect Data From Sensor
@@ -76,16 +104,16 @@ def handle(data):
         # id = int.from_bytes(data[1],"big")
         sensorList[id] = "TEMPERATURE"
         print("Ack Back to" + hex(id))
-        success = rfm9x.send(bytearray([GATWAY_ACK,id]))
+        success = dataSend(GATWAY_ACK,id,"DATA")
         print(f"Handle0x13 is {success}")
     elif data[0] == NODE_ACK:
         # id = int.from_bytes(data[1],"big")
         print("Ack Back to" + hex(id))
-        success = rfm9x.send(bytearray([GATWAY_ACK,id]))
+        success = dataSend(GATWAY_ACK,id,"DATA")
     elif data[0] == NODE_SENDING:
         #DOSOMETING
         pass
-        success = rfm9x.send(bytearray([GATWAY_ACK,id]))
+        success = dataSend(GATWAY_ACK,id,"DATA")
     
     return success
 
@@ -96,6 +124,7 @@ def listen(data_out:queue.Queue,dataLog:list) -> None:
         print(data)
         if data is not None:
             result = dp.parse(data)
+            print(f'Magic Code: {result["magic_code"]} \n Device ID: {result["device_id"]}\n Timestamp : {result["timestamp"]}')
             handle(data)
        
         

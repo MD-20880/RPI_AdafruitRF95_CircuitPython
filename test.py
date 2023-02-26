@@ -9,7 +9,7 @@ import struct
 
 
 class DataParser:
-    def __init__(self,MCL=1,DIL=1,TSL=26,PL=1):
+    def __init__(self,MCL=1,DIL=1,TSL=4,PL=1):
         self.MCL = 0
         self.DIS = MCL
         self.TSS = MCL + DIL
@@ -24,10 +24,10 @@ class DataParser:
         device_id  = dataLine[self.DIS:self.TSS]
         timestamp = dataLine[self.TSS:self.PLS]
         page_left = dataLine[self.PLS:self.DS]
-        parseOutput["magic_code"] = magic_code
-        parseOutput["device_id"] = device_id
-        parseOutput["timestamp"] 
-        parseOutput["page_left"] = page_left
+        parseOutput["magic_code"] = int.from_bytes(magic_code,"big")
+        parseOutput["device_id"] = int.from_bytes(device_id,"big")
+        parseOutput["timestamp"] = struct.unpack(">f",timestamp)
+        parseOutput["page_left"] = int.from_bytes(page_left,"big")
         
         return parseOutput
 
@@ -71,13 +71,14 @@ def get_sensor_data():
 
 def dataSend( mn , txData ):
     curtime = struct.pack(">f",time.time())
-    byteData = bytes(txData,'ascii')
-    rfm9x.send(bytes([mn,sensor_id,curtime,0x00,byteData]))
+    data = bytes([mn,sensor_id]) + curtime + bytes(0x00) + bytes(str(txData),'ascii')
+    rfm9x.send(bytearray(data))
 
 def dataReceive():
     receive = rfm9x.receive(timeout=RECEIVE_TIMEOUT)
     if receive is not None:
         return dp.parse(receive)
+    return None
         
     
 
@@ -87,13 +88,15 @@ while True:
     # INIT
     if sensor_status == "INIT":
         dataSend(NODE_MACHING, "" )
-        dataBack = dataReceive()
         print("INIT: 0x13 followed with its own ID")
+        packetData = dataReceive()
         # Listen for responses
-        packet = rfm9x.receive(timeout=RECEIVE_TIMEOUT)
-        if packet is not None:
+        if packetData is not None:
             # Received a packet
-            if packet[0] == GATWAY_ACK and packet[1] == sensor_id:
+            print(f'{packetData["magic_code"] == bytes(GATWAY_ACK)} \n {packetData["device_id"] == bytes(sensor_id)}')
+            print(f'{packetData["magic_code"]}  {GATWAY_ACK} \n {packetData["device_id"]} {bytes(sensor_id)}')
+            
+            if packetData["magic_code"] == GATWAY_ACK and packetData["device_id"] == sensor_id:
                 # Received the expected ack
                 sensor_status = "WORKING"
                 print("INIT:0x14 followed with its own ID, entering WORKING state")
@@ -108,7 +111,7 @@ while True:
         sensor_data = get_sensor_data()
         timestep = int(time.time())
         # Send data to Gateway
-        rfm9x.send(bytes([NODE_SENDING ,sensor_id, sensor_data]))
+        dataSend(NODE_SENDING , sensor_data)
         print("WORKING: Sensor Node collected data and sent it to gateway")
         # Listen for responses
         packet = rfm9x.receive(timeout=RECEIVE_TIMEOUT)
@@ -132,11 +135,11 @@ while True:
         print("IDLE: Sensor Node sent ack to gateway")
         # Listen for responses
         packet = rfm9x.receive(timeout=RECEIVE_TIMEOUT)
-        if packet is not None:
-           # Received a packet
-            if trialsCounter > MAX_TRIALS:
+        if trialsCounter > MAX_TRIALS:
                 sensor_status = "DISCONNECT"
                 continue
+        if packet is not None:
+           # Received a packet
             trialsCounter = 0
             if packet[0] == GATWAY_ACK and packet[1] == sensor_id:
                 # Received the expected ack

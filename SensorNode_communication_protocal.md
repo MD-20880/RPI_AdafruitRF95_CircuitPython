@@ -1,8 +1,38 @@
-This project is aimed to create a sensor system that can be easily deployed in home. 
-I hoped everyone with (just a little) electronics backgound could use raspberry pi and its family to deploy a home use sensor network easily.
+
+| Index:  |
+|---|
+|  1.Introduction |  
+|  Purpose      |  
+|  requirement  | 
+| Terminology   |
+| 2.Notational Conventions |
+| Basic Rules         |
+| Protocol Parameters |
+
+
+
+
+
+Brief Introduction:
+=
+This project is a purpose-based technology solution to enable low-cost, low-power, and easy-to-deploy home use wireless sensor network.
+
+Project is based on raspberry raspberry pi series dev-boards and LoRa communication protocol. 
+
+The initial purpose of this project is to provide a sensor module to Raspberry pi based smart home periferials. However, the project may not specific to raspberry pi and Lora communication protocol. It should be able to compatible to any platforms or communication protocols as long as the sensor could transport data in specific format.
+
+Currently, there are plenty of research on wireless sensor network, and there are also plenty of exist instances of communication protocols. However, most of them are complex and not friendly to most of people to deal with. This issule extremely slow down the pace of massive iot device deployment.
+If there exist a simple protocol that can be understood by anyone with (just a little ) electronics background. then it can encourage more iot device deployment. 
+
+To make a protocol easy to be understood, we need to have a simple but deligent principal. (     )
+
+
+Packet Design:
+===
 
 
 Packet Format:
+=
 
 magic number:
 0x10 - NODE_ACK      Node -> Gateway    
@@ -64,10 +94,7 @@ Basic Principal:
 
 
 Sensor Types: 
-    According to how data is been transported, we can set sensors into __ Categories:
-
-    A sensor will wether return (a set of)value(s) that need to be interpret{probe} 
-    Or a well formatted String that already interpret for Us. 
+    Each type of sensor will send its value to gateway through ascii encoded plain text
 
 Sensor ID: 
 
@@ -75,6 +102,7 @@ Sensor ID:
 
 
 Concepts:
+===
 
     Sensor:
     Device Sensor:
