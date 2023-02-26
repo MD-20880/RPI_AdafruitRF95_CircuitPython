@@ -1,12 +1,12 @@
 class SensorInterface:
     
     def __init__(self) -> None:
-        self.activated
-        self.hasReading
-        self.timestamp
-        self.onreading
-        self.onactivate
-        self.onerror
+        self.activated : bool 
+        self.hasReading : bool
+        self.timestamp : float
+        self.onreading : function
+        self.onactivate : function
+        self.onerror : function
         pass
     
     
