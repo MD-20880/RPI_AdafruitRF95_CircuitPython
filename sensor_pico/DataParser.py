@@ -23,6 +23,5 @@ class DataParser:
         parseOutput["device_id"] = data[1]
         parseOutput["timestamp"] = data[2]
         parseOutput["page_left"] = data[3]
-        parseOutput["data"] = dataLine[self.DS:].decode("ascii")
         
         return parseOutput
