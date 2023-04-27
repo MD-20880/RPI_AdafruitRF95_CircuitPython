@@ -1,10 +1,3 @@
-# ;==========================================
-# ; Title:  SensorPi
-# ; Author: Mingzhang Deng
-# ; Date:   26 APR 2023
-# ;==========================================
-
-
 # Circuit Python Code
 import time
 import board
@@ -46,18 +39,6 @@ pir = DigitalInOut(board.GP17)
 pir.direction = Direction.INPUT
 
 
-
-
-#SYMBOLS
-# NODE_ACK=0x10
-# GATWAY_ACK=0x11
-# NODE_SENDING=0x12
-# NODE_MACHING=0x13
-# GATWAY_COMMAND=0x14
-# GATWAY_REQUEST=0x15
-
-
-# Sensor Node Properties
 def command_handler(cmd):
     return 0
 

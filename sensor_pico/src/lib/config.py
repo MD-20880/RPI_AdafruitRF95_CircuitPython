@@ -1,3 +1,10 @@
+# ;==========================================
+# ; Title:  SensorPi
+# ; Author: Mingzhang Deng
+# ; Date:   26 APR 2023
+# ;==========================================
+
+
 RECORD_PERIOD=5 #S(econd)
 FREQ=433.0 #MHz
 TYPE=1 #Active

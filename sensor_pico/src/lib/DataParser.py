@@ -1,5 +1,12 @@
-import struct
+# ;==========================================
+# ; Title:  SensorPi
+# ; Author: Mingzhang Deng
+# ; Date:   26 APR 2023
+# ;==========================================
 
+
+
+import struct
 
 #MCL = MAGIC_CODE_LENGTH
 class DataParser:

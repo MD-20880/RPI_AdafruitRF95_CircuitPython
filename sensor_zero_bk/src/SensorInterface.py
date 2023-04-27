@@ -1,3 +1,10 @@
+# ;==========================================
+# ; Title:  SensorPi
+# ; Author: Mingzhang Deng
+# ; Date:   26 APR 2023
+# ;==========================================
+
+
 class SensorInterface:
     
     def __init__(self) -> None:
