@@ -171,6 +171,3 @@ Sensor Node Behavior:
 
 
     
-
-Installation
-==
