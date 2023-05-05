@@ -1,3 +1,11 @@
+# *********** If You Are My Project Assessor, Please Do Read [This](./TO_ASSESSOR.md) File For The Handed Hardware Detail **************
+
+
+
+
+
+
+
 
 | Index:  |
 |---|
