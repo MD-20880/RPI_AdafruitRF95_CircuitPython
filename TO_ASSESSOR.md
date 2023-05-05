@@ -16,46 +16,48 @@ The Submitted Sensor Node and gateway is already functioning. Here is the Compon
 ### Gateway
 The gateway only comprises A raspberry pi zero and a LoRa RFM9X Unit. RPI Zero and RFM9X connected as follows.
 
-| RFM9X | RPI Zero| 
-|-------------|
-| Vin|3V3 Power| 
-|GND|GND|
-|EN| - |
-|G0|-|
-|SCK| SPI0 SCLK(GP11)|
-|MISO|SPI0 MISO(GP9)|
-|MOSI|SPI0 MOSI(GP10)|
-|CS| GP22| 
-|RST|SPI0 CE1(GP7)|
-|G1|-|
-|G2|-|
-|G3|-|
-|G4|-|
-|G5|-|
+<Pre>
+| RFM9X | RPI Zero          | 
+|---------------------------|
+| Vin   |3V3 Power          | 
+|GND    |GND                |
+|EN     | -                 |
+|G0     |-                  |
+|SCK    | SPI0 SCLK(GP11)   |
+|MISO   |SPI0 MISO(GP9)     |
+|MOSI   |SPI0 MOSI(GP10)    |
+|CS     | GP22              | 
+|RST    |SPI0 CE1(GP7)      |
+|G1     |-                  |
+|G2     |-                  |
+|G3     |-                  |
+|G4     |-                  |
+|G5     |-                  |
+</pre>                  
 
 ## A Gateway Example
 ![Gateway](images/Sensor_zero.jpg)
 
 
 ### Sensor Node
-
-| RFM9X | RPI Zero| 
-|-------------|
-| Vin|3V3 Power| 
-|GND|GND|
-|EN| - |
-|G0|-|
-|SCK| SPI0 SCLK(GP11)|
-|MISO|SPI0 MISO(GP9)|
-|MOSI|SPI0 MOSI(GP10)|
-|CS| GP22| 
-|RST|SPI0 CE1(GP7)|
-|G1|-|
-|G2|-|
-|G3|-|
-|G4|-|
-|G5|-|
-
+<pre>
+| RFM9X | RPI Zero  | 
+|-------------      |
+| Vin   |3V3 Power  | 
+|GND    |GND        |
+|EN     | -         |
+|G0     |-          |
+|SCK    |GP2        |
+|MISO   |GP4        |
+|MOSI   |GP3        |
+|CS     |GP5        | 
+|RST    |GP0        |
+|G1     |-          |
+|G2     |-          |
+|G3     |-          |
+|G4     |-          |
+|G5     |-          |
+</pre>
 ## A Sensor Node Example 
 ![Sensor Node Example](images/sensor_py.jpg)
 
