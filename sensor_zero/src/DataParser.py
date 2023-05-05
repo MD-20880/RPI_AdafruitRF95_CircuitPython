@@ -4,7 +4,7 @@
 # ; Date:   26 APR 2023
 # ;==========================================
 
-
+#This is a dataparser, data from sensor pi devices will be parsed by the parser.
 import struct
 
 

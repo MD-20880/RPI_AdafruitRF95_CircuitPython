@@ -5,13 +5,23 @@
 # ;==========================================
 
 
+#This File Contains the Utilization tools for Sensor Py
+
 from pprint import pprint
 
+
+# timeConvert(basetuple, current) -> float: 
+# Calculate the offset timestamp and the base timestamp, add it up to the record and calculate accurate time.
 def timeConvert(basetuple, current) -> float:
     return current - basetuple[0] + basetuple[1]
 
 def saveSensorData():
     pass
+
+#loadSensorData(filename) -> dict: 
+# This function loads sensor data from a text file
+# The data in the file is expected to be in the following format:
+#sensor_id:timestamp:{"sensor_reading_1":value_1,"sensor_reading_2":value_2,...}\n
 
 def loadSensorData(filename)-> dict:
     result = {}

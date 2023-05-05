@@ -5,6 +5,14 @@
 # ;==========================================
 
 
+#This file is designed to describe the basic data of a sensor.
+#Before using the sensor in the system, sensors should register themself to the system by 
+# implementing the Sensor Interface. With the Sensor Interface, the host could 
+#1. Know the type of the sensor
+#2. get the basic information of the data.
+ 
+#This file might could combine with SensorPi.py
+
 class SensorInterface:
     
     def __init__(self) -> None:

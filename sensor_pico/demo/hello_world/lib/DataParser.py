@@ -1,4 +1,5 @@
 import struct
+#This is a dataparser, data from sensor pi devices will be parsed by the parser.
 
 
 #MCL = MAGIC_CODE_LENGTH

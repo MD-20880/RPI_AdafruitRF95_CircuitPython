@@ -4,6 +4,11 @@
 # ; Date:   26 APR 2023
 # ;==========================================
 
+#This is a simple front end program
+#The purpose of this program is to display the sensor data output
+
+
+#This file could be further developed to be a front end control panel
 
 from dash import Dash, html, dcc, callback, Output, Input
 import plotly.express as px

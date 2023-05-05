@@ -1,14 +1,13 @@
 import time 
-
 from config import *
 from symbols import *
 
 
 #Params:
-#   sensor_status
-#   sp
-#   get_sensor_data
-#   command_handler
+#   sensor_status : current State
+#   sp      = SensorPi object 
+#   get_sensor_data : function defined the output data format
+#   command_handler : function handle command from gateway
 def state(sensor_status,sp,start_time,get_sensor_data,command_handler):
     # INIT
     if sensor_status == "INIT":

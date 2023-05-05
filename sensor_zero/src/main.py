@@ -33,13 +33,12 @@ rfm9x = adafruit_rfm9x.RFM9x(spi, cs, reset, 433.0)
 #dataParser 
 
 #communication
-sp = SensorPi.SensorPi(rfm9x=rfm9x)
+sp = SensorPi.SensorPi(radio=rfm9x)
 #SensorList { ID : Sensor }
 sensorList = {}
 dataList = []
 
-#NODE_MATCHING : Matching request from sensor node
-#NODE_ACK : Ack from sensor node, need Ack back
+#Haldel the data from another SensorPi Devices
 def handle(data):
     id = data["device_id"]
     success = -1
@@ -63,7 +62,7 @@ def handle(data):
 
     
 
-
+#Listen to other SensorPi device communication.
 def listen() -> None:
     while True:
         data = sp.dataReceive()
@@ -125,13 +124,14 @@ if __name__ == "__main__":
                 print("USAGE: print[p] [SensorID]")
         elif cmd == "list":
             print(sensorList)
-        
+
         elif cmd == "start":
             print(f"start")
+            #TODO
         
         elif cmd == "panel":
             print("start Panel")
-        
+            #TODO
         elif cmd == "quit":
             print("Quit")
             exit(0)
