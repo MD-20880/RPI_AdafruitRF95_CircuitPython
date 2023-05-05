@@ -2,7 +2,7 @@
 Hardware Installation
 ===
 
-To utilize the SenosrPi, components below is necessary.
+To utilize the SenosrPi, components below are necessary.
 
 1. A Raspberry Pi SBC (As Gateway)
 2. A Raspberry Pi Pico CMU(As Sensor Node)
