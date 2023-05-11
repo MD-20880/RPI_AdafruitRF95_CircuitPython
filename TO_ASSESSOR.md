@@ -101,11 +101,14 @@ SensorPI >>
 Here, the sensor pi is waitin for your command.
 
 Now, we have several simple function support:
-| Functions | command |
-|-| 
-|Print All Connected Sensor Nodes| list |
-|Print Data From Specific Sensor Node| print <Device_ID>|
-|Save all Sensor Data to log.txt| save |
+
+<pre>
+|            Functions               |      command        |
+|              -                     |        -            |
+|Print All Connected Sensor Nodes    |        list         |
+|Print Data From Specific Sensor Node| print <Device_ID>   |
+|Save all Sensor Data to log.txt     |         save        |
+ </pre>
 
 before the Sensor node is ready, you can't see any respond from all these commands.
 
